@@ -37,18 +37,16 @@ app.post("/",(req,res)=>{
     const url = `https://us12.api.mailchimp.com/3.0/lists/${audienceId}/members?skip_merge_validation=${true}`;
 
     const request = https.request(url,options,response=>{
-
+        console.log(response.statusCode);
         if (response.statusCode === 200){
+
             res.sendFile(`${__dirname}/success.html`)
-         }//else if(response.statusCode === 400){
-        //     res.send('<script>alert("User Exists")</script>')
-            
-        // }
+         }
         else{
             res.sendFile(`${__dirname}/failure.html`)
         }
         response.on('data',data=>{
-            const responseData = JSON.parse(data);
+            JSON.parse(data);
             const statusCode = responseData['status']
             // console.log(typeof statusCode)
             // console.log( statusCode)
@@ -74,7 +72,7 @@ app.post("/failure",(req,res)=>{
 })
 
 
-app.listen(process.env.PORT,()=>console.log('server is runign on port 3000'));
+app.listen(process.env.PORT||4000,()=>console.log('server is runing on port 3000'));
 
 
 
