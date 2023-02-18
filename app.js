@@ -2,8 +2,7 @@ const express = require('express');
 const bodyParser =  require('body-parser');
 const requests = require('request');
 const https = require('https');
-// const { error } = require('console');
-
+const imp = require( `${__dirname}/.secrets.js`);
 const app = express();
 
 app.use(bodyParser.urlencoded({extended:true}));
@@ -16,7 +15,6 @@ app.post("/",(req,res)=>{
     const firstName = req.body.firstName;
     const email = req.body.email;
     const lastName = req.body.lastName;
-    // const password = req.body.password;
 
     const data = {
         email_address:email,
@@ -28,13 +26,13 @@ app.post("/",(req,res)=>{
     };
     
     const jsonData = JSON.stringify(data);
-    const audienceId = 'deac232de2';
     const options = {
         method:"POST",
-        auth:"abhishek1:40acb1ee36d4cf63c9683a3a73400dbd-us12"
+        auth: `abhishek1:${imp.media}`
     }
 
-    const url = `https://us12.api.mailchimp.com/3.0/lists/${audienceId}/members?skip_merge_validation=${false}`;
+
+    const url = `https://us12.api.mailchimp.com/3.0/lists/${imp.audience}/members?skip_merge_validation=${false}`;
 
     const request = https.request(url,options,response=>{
         console.log(response.statusCode);
@@ -71,9 +69,8 @@ app.post("/failure",(req,res)=>{
     res.redirect("/");
 })
 
+const port = 4000;
 
-app.listen(process.env.PORT||4000,()=>console.log('server is runing on port 3000'));
+app.listen(process.env.PORT||port,()=>console.log(`server is runing on port ${port}`));
 
 
-
-//const apiKey  a272afad3d07b1703c2ea89b9e9a8c74-us12 X = 12 in my case
