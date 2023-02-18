@@ -4,6 +4,11 @@
 .secrets.js
 .secrets.sample.secret
 
+.vscode
+.log
+*.log
+
+
 # Logs
 logs
 *.log
