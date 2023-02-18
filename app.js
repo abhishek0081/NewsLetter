@@ -31,14 +31,14 @@ app.post("/",(req,res)=>{
     const audienceId = 'deac232de2';
     const options = {
         method:"POST",
-        auth:"abhishek1:a272afad3d07b1703c2ea89b9e9a8c74-us12"
+        auth:"abhishek1:40acb1ee36d4cf63c9683a3a73400dbd-us12"
     }
 
-    const url = `https://us12.api.mailchimp.com/3.0/lists/${audienceId}/members?skip_merge_validation=${true}`;
+    const url = `https://us12.api.mailchimp.com/3.0/lists/${audienceId}/members?skip_merge_validation=${false}`;
 
     const request = https.request(url,options,response=>{
         console.log(response.statusCode);
-        if (response.statusCode === 200){
+        if (response.statusCode >= 200 && response.statusCode <= 299 ){
 
             res.sendFile(`${__dirname}/success.html`)
          }
@@ -46,15 +46,15 @@ app.post("/",(req,res)=>{
             res.sendFile(`${__dirname}/failure.html`)
         }
         response.on('data',data=>{
-            JSON.parse(data);
-            const statusCode = responseData['status']
-            // console.log(typeof statusCode)
-            // console.log( statusCode)
-            // if (statusCode === "subscribed"){
-            //     res.sendFile(`${__dirname}/success.html`)
-            // }else{
-            //     res.sendFile(`${__dirname}/failure.html`)
-            // }
+        //     const responseData = JSON.parse(data);
+        //     const statusCode = responseData['status']
+        //     console.log(typeof statusCode)
+        //     console.log( statusCode)
+        //     if (statusCode === "subscribed"){
+        //         res.sendFile(`${__dirname}/success.html`)
+        //     }else{
+        //         res.sendFile(`${__dirname}/failure.html`)
+        //     }
         })
     })
 
