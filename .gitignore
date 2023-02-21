@@ -8,6 +8,13 @@
 .log
 *.log
 
+/node_modules
+node_modules
+.env
+.DS_Store
+/*.env
+*.env
+
 
 # Logs
 logs
