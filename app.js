@@ -9,7 +9,7 @@ const app = express();
 
 app.use(bodyParser.urlencoded({extended:true}));
 
-app.use(express.static('Public'));
+app.use(express.static('public'));
 app.get("/",(req,res)=>{
     res.sendFile(`${__dirname}/signUp.html`)
 })
